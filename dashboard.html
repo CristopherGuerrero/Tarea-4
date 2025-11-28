@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard CRUD</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1>Gestión de Usuarios</h1>
+
+<div class="form-container">
+    <input type="hidden" id="editIndex">
+    <input type="text" id="name" placeholder="Nombre">
+    <input type="email" id="email" placeholder="Correo">
+    <input type="number" id="age" placeholder="Edad">
+    <button onclick="addRecord()">Guardar</button>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Edad</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
+</table>
+
+<script src="crud.js"></script>
+</body>
+</html>
