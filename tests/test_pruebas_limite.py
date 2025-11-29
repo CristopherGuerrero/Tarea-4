@@ -10,9 +10,6 @@ import time
 import os
 
 
-# ==========================
-# FIXTURE DEL DRIVER
-# ==========================
 @pytest.fixture
 def driver():
     options = Options()
@@ -25,25 +22,17 @@ def driver():
     driver.quit()
 
 
-# ==========================
-# PRUEBAS DE LÍMITE
-# ==========================
 def test_pruebas_limite(driver):
 
     wait = WebDriverWait(driver, 10)
 
-    # Crear carpeta de screenshots
     if not os.path.exists("screenshots_limite"):
         os.makedirs("screenshots_limite")
 
     SAVE = lambda name: driver.save_screenshot(f"screenshots_limite/{name}.png")
 
-    # ===========================================================
-    # 1️ LOGIN – PRUEBAS DE LÍMITE
-    # ===========================================================
     driver.get("file:///C:/Users/crist/Downloads/ITLA/III/index.html")
 
-    # --- Usuario vacío ---
     wait.until(EC.presence_of_element_located((By.ID, "username"))).clear()
     driver.find_element(By.ID, "password").clear()
 
@@ -57,7 +46,6 @@ def test_pruebas_limite(driver):
     error_msg = driver.find_element(By.ID, "loginError").text
     assert error_msg.strip() != "", "ERROR: Login vacío sin mensaje"
 
-    # --- Usuario muy corto ---
     driver.find_element(By.ID, "username").clear()
     driver.find_element(By.ID, "password").clear()
 
@@ -71,7 +59,6 @@ def test_pruebas_limite(driver):
     error_msg = driver.find_element(By.ID, "loginError").text
     assert error_msg.strip() != "", "ERROR: Usuario corto sin mensaje"
 
-    # --- Contraseña muy larga ---
     driver.find_element(By.ID, "username").clear()
     driver.find_element(By.ID, "password").clear()
 
@@ -85,18 +72,12 @@ def test_pruebas_limite(driver):
     error_msg = driver.find_element(By.ID, "loginError").text
     assert error_msg.strip() != "", "ERROR: Pass larga sin mensaje"
 
-    # ===========================================================
-    # 2️ CREAR – PRUEBAS DE LÍMITE
-    # ===========================================================
-
-    # Login correcto
     driver.find_element(By.ID, "username").clear()
     driver.find_element(By.ID, "username").send_keys("admin")
     driver.find_element(By.ID, "password").clear()
     driver.find_element(By.ID, "password").send_keys("1234")
     driver.find_element(By.TAG_NAME, "button").click()
 
-    # --- Edad = 0 ---
     wait.until(EC.presence_of_element_located((By.ID, "name"))).send_keys("Prueba Limite")
     driver.find_element(By.ID, "email").send_keys("limite@correo.com")
     driver.find_element(By.ID, "age").send_keys("0")
@@ -112,7 +93,6 @@ def test_pruebas_limite(driver):
 
     assert "edad" in txt or "obligatorios" in txt
 
-    # --- Nombre muy largo ---
     driver.find_element(By.ID, "name").clear()
     driver.find_element(By.ID, "email").clear()
     driver.find_element(By.ID, "age").clear()
@@ -133,7 +113,6 @@ def test_pruebas_limite(driver):
 
     assert "obligatorios" in txt or "largo" in txt or "nombre" in txt
 
-    # --- Email inválido ---
     driver.find_element(By.ID, "name").clear()
     driver.find_element(By.ID, "email").clear()
     driver.find_element(By.ID, "age").clear()
@@ -154,10 +133,6 @@ def test_pruebas_limite(driver):
 
     assert "correo" in txt or "email" in txt
 
-    # ===========================================================
-    # 3️ LEER – PRUEBAS DE LÍMITE
-    # ===========================================================
-
     driver.find_element(By.ID, "name").clear()
     driver.find_element(By.ID, "email").clear()
     driver.find_element(By.ID, "age").clear()
@@ -173,10 +148,6 @@ def test_pruebas_limite(driver):
 
     tabla_txt = driver.find_element(By.ID, "tableBody").text
     assert "Registro Lectura" in tabla_txt
-
-    # ===========================================================
-    # 4️ EDITAR – PRUEBAS DE LÍMITE
-    # ===========================================================
 
     driver.find_element(By.XPATH, "//button[contains(text(),'Editar')]").click()
     time.sleep(1)
@@ -195,7 +166,6 @@ def test_pruebas_limite(driver):
     tabla_txt = driver.find_element(By.ID, "tableBody").text
     assert "X" in tabla_txt
 
-    # --- Edad extrema ---
     driver.find_element(By.XPATH, "//button[contains(text(),'Editar')]").click()
     time.sleep(1)
 
@@ -215,10 +185,6 @@ def test_pruebas_limite(driver):
 
     assert "edad" in txt or "obligatorios" in txt
 
-    # ===========================================================
-    # 5️ ELIMINAR – PRUEBAS DE LÍMITE
-    # ===========================================================
-
     driver.find_element(By.XPATH, "//button[contains(text(),'Eliminar')]").click()
     time.sleep(1)
 
@@ -227,6 +193,4 @@ def test_pruebas_limite(driver):
     tabla_txt_final = driver.find_element(By.ID, "tableBody").text
     assert tabla_txt_final.strip() == ""
 
-    print("\n====================================")
-    print(" TODAS LAS PRUEBAS DE LÍMITE LISTAS ✔")
-    print("====================================")
+    print(" TODAS LAS PRUEBAS DE LÍMITE LISTAS ")

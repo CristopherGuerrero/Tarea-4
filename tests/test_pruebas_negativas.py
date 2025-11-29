@@ -10,9 +10,6 @@ import time
 import os
 
 
-# ==========================
-# FIXTURE PARA CONFIGURAR DRIVER
-# ==========================
 @pytest.fixture
 def driver():
     options = Options()
@@ -24,10 +21,6 @@ def driver():
     yield driver
     driver.quit()
 
-
-# ==========================
-# PRUEBAS NEGATIVAS
-# ==========================
 def test_pruebas_negativas(driver):
     wait = WebDriverWait(driver, 10)
 
@@ -35,9 +28,6 @@ def test_pruebas_negativas(driver):
     if not os.path.exists("screenshots_negativas"):
         os.makedirs("screenshots_negativas")
 
-    # ===========================================================
-    # 1️ LOGIN INCORRECTO
-    # ===========================================================
     driver.get("file:///C:/Users/crist/Downloads/ITLA/III/index.html")
 
     wait.until(EC.presence_of_element_located((By.ID, "username"))).send_keys("wrong")
@@ -50,16 +40,12 @@ def test_pruebas_negativas(driver):
     error_msg = driver.find_element(By.ID, "loginError").text
     assert "incorrectas" in error_msg.lower(), "ERROR: No se mostró mensaje de credenciales incorrectas"
 
-    # ===========================================================
-    # 2️ CREAR REGISTRO VACÍO
-    # ===========================================================
     driver.find_element(By.ID, "username").clear()
     driver.find_element(By.ID, "username").send_keys("admin")
     driver.find_element(By.ID, "password").clear()
     driver.find_element(By.ID, "password").send_keys("1234")
     driver.find_element(By.TAG_NAME, "button").click()
 
-    # Intentar guardar vacío
     wait.until(EC.presence_of_element_located((By.XPATH, "//button[contains(text(),'Guardar')]"))).click()
 
     time.sleep(0.5)
@@ -72,9 +58,6 @@ def test_pruebas_negativas(driver):
 
     driver.save_screenshot("screenshots_negativas/crear_vacio.png")
 
-    # ===========================================================
-    # 3️ EDITAR REGISTRO CON CAMPOS VACÍOS
-    # ===========================================================
     wait.until(EC.presence_of_element_located((By.ID, "name"))).send_keys("Editar Negativo")
     driver.find_element(By.ID, "email").send_keys("editar@correo.com")
     driver.find_element(By.ID, "age").send_keys("25")
@@ -101,9 +84,6 @@ def test_pruebas_negativas(driver):
 
     driver.save_screenshot("screenshots_negativas/editar_vacio.png")
 
-    # ===========================================================
-    # 4️ ELIMINAR SIN REGISTROS
-    # ===========================================================
     driver.find_element(By.XPATH, "//button[contains(text(),'Eliminar')]").click()
     time.sleep(1)
 
@@ -114,6 +94,4 @@ def test_pruebas_negativas(driver):
         driver.save_screenshot("screenshots_negativas/eliminar_inexistente.png")
         print("No hay registros — prueba negativa correcta.")
 
-    print("\n====================================")
-    print(" TODAS LAS PRUEBAS NEGATIVAS LISTAS ✔")
-    print("====================================")
+    print(" TODAS LAS PRUEBAS NEGATIVAS LISTAS ")

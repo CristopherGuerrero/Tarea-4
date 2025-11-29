@@ -9,9 +9,6 @@ from selenium.webdriver.chrome.options import Options
 import time
 import os
 
-# ==========================
-# FIXTURE PARA INICIAR Y CERRAR SELENIUM
-# ==========================
 @pytest.fixture
 def driver():
     options = Options()
@@ -24,19 +21,13 @@ def driver():
     driver.quit()
 
 
-# ==========================
-# FLUJO FELIZ COMPLETO
-# ==========================
+
 def test_flujo_feliz(driver):
     wait = WebDriverWait(driver, 10)
 
     # Crear carpeta si no existe
     if not os.path.exists("screenshots_feliz"):
         os.makedirs("screenshots_feliz")
-
-    # ==========================
-    # 1. LOGIN (CAMINO FELIZ)
-    # ==========================
 
     driver.get("file:///C:/Users/crist/Downloads/ITLA/III/index.html")
 
@@ -49,10 +40,6 @@ def test_flujo_feliz(driver):
 
     assert "dashboard" in driver.current_url.lower(), "ERROR: No se abrió el dashboard"
 
-    # ==========================
-    # 2. CREAR REGISTRO
-    # ==========================
-
     wait.until(EC.presence_of_element_located((By.ID, "name"))).send_keys("Juan Pérez")
     driver.find_element(By.ID, "email").send_keys("juan@example.com")
     driver.find_element(By.ID, "age").send_keys("25")
@@ -64,10 +51,6 @@ def test_flujo_feliz(driver):
 
     tabla = driver.find_element(By.ID, "tableBody").text
     assert "Juan Pérez" in tabla, "ERROR: Registro no creado en tabla"
-
-    # ==========================
-    # 3. EDITAR REGISTRO
-    # ==========================
 
     edit_button = wait.until(
         EC.presence_of_element_located((By.XPATH, "//button[contains(text(),'Editar')]"))
@@ -96,10 +79,6 @@ def test_flujo_feliz(driver):
     tabla = driver.find_element(By.ID, "tableBody").text
     assert "Juan Editado" in tabla, "ERROR: Registro no actualizado"
 
-    # ==========================
-    # 4. ELIMINAR REGISTRO
-    # ==========================
-
     delete_button = wait.until(
         EC.presence_of_element_located((By.XPATH, "//button[contains(text(),'Eliminar')]"))
     )
@@ -111,6 +90,4 @@ def test_flujo_feliz(driver):
     tabla_final = driver.find_element(By.ID, "tableBody").text
     assert "Juan Editado" not in tabla_final, "ERROR: Registro no eliminado"
 
-    print("\n===============================")
-    print(" CAMINO FELIZ COMPLETADO ✔️")
-    print("===============================")
+    print(" CAMINO FELIZ COMPLETADO ")

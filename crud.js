@@ -25,7 +25,6 @@ function addRecord() {
     const age = parseInt(document.getElementById("age").value.trim());
     const index = document.getElementById("editIndex").value;
 
-    // ----- VALIDACIONES OBLIGATORIAS -----
 
     if(name === "" || email === "" || isNaN(age)) {
         alert("Todos los campos son obligatorios");
@@ -52,7 +51,6 @@ function addRecord() {
         return;
     }
 
-    // ----- GUARDAR O EDITAR REGISTRO -----
 
     if(index === "") { 
         records.push({name, email, age});

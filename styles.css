@@ -1,4 +1,3 @@
-/* ======== GLOBAL ======== */
 body {
     font-family: "Segoe UI", Arial, sans-serif;
     background: #eef1f5;
@@ -6,7 +5,6 @@ body {
     padding: 0;
 }
 
-/* ======== LOGIN ======== */
 .login-container {
     width: 350px;
     margin: 100px auto;
@@ -53,7 +51,6 @@ body {
     color: #e63946;
 }
 
-/* ======== TITULO DASHBOARD ======== */
 h1 {
     text-align: center;
     padding: 25px 0;
@@ -64,7 +61,6 @@ h1 {
     box-shadow: 0px 2px 6px rgba(0,0,0,0.05);
 }
 
-/* ======== FORM CRUD ======== */
 .form-container {
     width: 420px;
     margin: 30px auto;
@@ -100,7 +96,6 @@ h1 {
     background: #1e7e34;
 }
 
-/* ======== TABLA CRUD ======== */
 table {
     width: 90%;
     margin: 20px auto;
@@ -157,7 +152,6 @@ button[onclick*="delete"]:hover {
     background: #b52a35;
 }
 
-/* ======== RESPONSIVE ======== */
 @media (max-width: 600px) {
     .form-container, .login-container {
         width: 90%;
